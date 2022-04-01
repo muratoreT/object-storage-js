@@ -60,12 +60,18 @@ export class S3Client implements ObjectStoreClient {
     } while (continuationToken !== undefined);
   }
 
-  public async putObject(object: StoreObject, key: string, bucket: string): Promise<void> {
+  public async putObject(
+    object: StoreObject,
+    key: string,
+    bucket: string,
+    isPublic: boolean = false,
+  ): Promise<void> {
     const request = this.client.putObject({
       Body: object.body,
       Bucket: bucket,
       Key: key,
       Metadata: object.metadata,
+      ACL: isPublic ? 'public-read' : 'private',
     });
     await request.promise();
   }
