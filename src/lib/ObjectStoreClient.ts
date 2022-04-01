@@ -19,7 +19,12 @@ export interface ObjectStoreClient {
    */
   readonly listObjectKeys: (prefix: string, bucket: string) => AsyncIterable<string>;
 
-  readonly putObject: (object: StoreObject, key: string, bucket: string) => Promise<void>;
+  readonly putObject: (
+    object: StoreObject,
+    key: string,
+    bucket: string,
+    isPublic?: boolean,
+  ) => Promise<void>;
 
   /**
    * Delete the object corresponding to `key`.
